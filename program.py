@@ -1,5 +1,5 @@
 import urllib.request
-from collections import namedtuple
+from collections import namedtuple, Counter
 from collections import defaultdict
 import csv
 
@@ -46,17 +46,20 @@ def main():
 
     # TODO: parse data into defaultdict
     directors = get_movies_by_director(movies_csv)
-    print('Directors & Movies {}'.format(directors))
+    # print('Directors & Movies {}'.format(directors))
 
     # TODO: list movies for a (director)
     director_name = input('Grab a movie list for which Director? ')
     print('Movies for {}: {}'.format(director_name, directors[director_name]))
 
-
-
-
     # TODO: top (n) directors - based on number of movies
+    number_directors = int(input('The top [n] directors? '))
 
+    cnt = Counter()
+    for director, movies in directors.items():
+        cnt[director] += len(movies)
+
+    print('Most common directors: {}'.format(cnt.most_common(number_directors)))
 
 if __name__ == '__main__':
     main()
